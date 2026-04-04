@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Browse</h1>
+{% for section, data in tree.items() %}
+  <section class="panel">
+    <h2>{{ section }}/</h2>
+    {% if data.files %}
+      <ul class="file-list">
+        {% for f in data.files %}
+          <li><a href="/view/{{ f.rel }}">{{ f.rel }}</a></li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p class="hint">empty</p>
+    {% endif %}
+  </section>
+{% endfor %}
+{% endblock %}

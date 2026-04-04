@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>{% block title %}LLM Knowledge Base{% endblock %}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<header>
+  <nav>
+    <a href="/" class="brand">LLM KB</a>
+    <a href="/browse">Browse</a>
+    <a href="/search">Search</a>
+    <a href="/query">Ask</a>
+    <a href="/ingest">Ingest</a>
+    <span class="spacer"></span>
+    <span class="status {% if llm_enabled %}on{% else %}off{% endif %}">
+      LLM: {% if llm_enabled %}online{% else %}offline{% endif %}
+    </span>
+  </nav>
+</header>
+<main>
+{% block content %}{% endblock %}
+</main>
+<footer>
+  <small>LLM Knowledge Base · v0.1.0</small>
+</footer>
+</body>
+</html>

@@ -3,3 +3,8 @@
 .DS_Store
 __pycache__/
 *.pyc
+.pytest_cache/
+app.db
+.env
+.venv/
+venv/

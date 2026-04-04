@@ -1,15 +1,11 @@
 # Wiki Index
 
-This index is maintained by the agent. It lists concept articles grouped by theme and recent additions.
+_Auto-maintained by the compile loop._
 
 ## Concepts
-
-_No concept articles yet. Add sources to `raw/` and ask the agent to compile the wiki._
+_No concept articles yet._
 
 ## Recent summaries
+- [[summaries/README]]
 
-_None yet._
-
-## Open questions
-
-See `_meta/` for lint reports and open questions.
+_Last updated: 2026-04-04 22:09:01_

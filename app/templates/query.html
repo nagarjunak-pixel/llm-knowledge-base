@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Ask the wiki</h1>
+<form method="post" action="/query" class="query-form">
+  <textarea name="question" rows="3" placeholder="Ask a question…" required>{% if result %}{{ result.question }}{% endif %}</textarea>
+  <button class="primary" type="submit">Answer</button>
+</form>
+{% if result %}
+  <section class="panel">
+    <h2>Answer <small>({{ result.model }}{% if result.offline %} · offline{% endif %})</small></h2>
+    <article class="markdown">{{ result.answer_html | safe }}</article>
+    <h3>Sources</h3>
+    <ul class="file-list">
+      {% for s in result.sources %}
+        <li><a href="/view/{{ s }}">{{ s }}</a></li>
+      {% else %}
+        <li>(none)</li>
+      {% endfor %}
+    </ul>
+    {% if result.output %}
+      <p class="hint">Saved as <a href="/view/{{ result.output }}"><code>{{ result.output }}</code></a>.</p>
+    {% endif %}
+  </section>
+{% endif %}
+{% endblock %}

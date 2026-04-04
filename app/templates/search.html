@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Search</h1>
+<form method="get" action="/search" class="search-form">
+  <input type="search" name="q" value="{{ q }}" placeholder="keywords…" autofocus>
+  <button type="submit">Search</button>
+</form>
+{% if q %}
+  <p class="hint">{{ results|length }} result(s) for <strong>{{ q }}</strong></p>
+  <ul class="search-results">
+    {% for r in results %}
+      <li>
+        <a href="/view/{{ r.path }}"><strong>{{ r.title or r.path }}</strong></a>
+        <span class="badge">{{ r.kind }}</span>
+        <div class="snippet">{{ r.snippet | safe }}</div>
+        <code>{{ r.path }}</code>
+      </li>
+    {% else %}
+      <li>No matches.</li>
+    {% endfor %}
+  </ul>
+{% endif %}
+{% endblock %}

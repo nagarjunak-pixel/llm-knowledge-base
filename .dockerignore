@@ -1,0 +1,13 @@
+app.db
+*.pyc
+__pycache__
+.pytest_cache
+.venv
+venv
+.git
+.gitignore
+Dockerfile
+docker-compose.yml
+.env
+tests
+outputs/*.md

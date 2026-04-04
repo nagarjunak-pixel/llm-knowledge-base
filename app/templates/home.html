@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="dashboard">
+  <div class="panel">
+    <h2>Status</h2>
+    <ul class="metrics">
+      <li><span class="k">Sources</span><span class="v">{{ status.total_sources }}</span></li>
+      <li><span class="k">Summarized</span><span class="v">{{ status.summarized }}</span></li>
+      <li><span class="k">Pending</span><span class="v">{{ status.pending|length }}</span></li>
+    </ul>
+    <form method="post" action="/compile" hx-post="/compile" hx-swap="none">
+      <button class="primary" type="submit">Compile wiki</button>
+    </form>
+    <p class="hint">
+      {% if llm_enabled %}
+        LLM online — summaries and answers will use Claude.
+      {% else %}
+        Running in offline mode (rule-based summarizer). Set
+        <code>ANTHROPIC_API_KEY</code> for full quality.
+      {% endif %}
+    </p>
+  </div>
+  <div class="panel">
+    <h2>Recent activity</h2>
+    <ul class="events">
+      {% for e in events %}
+        <li><span class="k">{{ e.kind }}</span> {{ e.message }}</li>
+      {% else %}
+        <li>(no events yet)</li>
+      {% endfor %}
+    </ul>
+  </div>
+</section>
+
+<section class="panel">
+  <h2>Wiki index</h2>
+  <article class="markdown">
+    {{ index_html | safe }}
+  </article>
+</section>
+{% endblock %}

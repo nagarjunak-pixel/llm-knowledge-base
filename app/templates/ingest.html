@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Ingest</h1>
+<section class="panel">
+  <h2>Upload a source</h2>
+  <form method="post" action="/ingest/upload" enctype="multipart/form-data" class="ingest-form">
+    <label>Category
+      <select name="category">
+        <option value="articles">articles</option>
+        <option value="papers">papers</option>
+        <option value="data">data</option>
+        <option value="images">images</option>
+      </select>
+    </label>
+    <input type="file" name="file" required>
+    <button class="primary" type="submit">Upload</button>
+  </form>
+</section>
+
+<section class="panel">
+  <h2>Status</h2>
+  <ul class="metrics">
+    <li><span class="k">Total sources</span><span class="v">{{ status.total_sources }}</span></li>
+    <li><span class="k">Summarized</span><span class="v">{{ status.summarized }}</span></li>
+    <li><span class="k">Pending</span><span class="v">{{ status.pending|length }}</span></li>
+  </ul>
+  {% if status.pending %}
+    <h3>Pending</h3>
+    <ul class="file-list">
+      {% for p in status.pending %}<li><code>{{ p }}</code></li>{% endfor %}
+    </ul>
+  {% endif %}
+  <form method="post" action="/compile">
+    <button class="primary" type="submit">Compile now</button>
+  </form>
+</section>
+{% endblock %}

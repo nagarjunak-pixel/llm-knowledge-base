@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}{{ title }} — LLM KB{% endblock %}
+{% block content %}
+<nav class="crumbs"><a href="/">home</a> / <a href="/browse">browse</a> / <code>{{ rel }}</code></nav>
+<article class="markdown panel">
+  {{ content_html | safe }}
+</article>
+{% if raw %}
+<details class="panel">
+  <summary>Source markdown</summary>
+  <pre>{{ raw }}</pre>
+</details>
+{% endif %}
+{% endblock %}
