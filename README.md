@@ -58,7 +58,31 @@ docker compose up -d --build
 
 The compose file mounts `raw/`, `wiki/`, and `outputs/` as host volumes so your data survives rebuilds, and keeps the SQLite index on a named volume (`kb-db`). Healthcheck hits `/api/health` every 30s.
 
-Deploy anywhere Docker runs: a VPS (`docker compose up -d` behind nginx/caddy), Fly.io (`fly launch` picks up the Dockerfile), Render, Railway, Google Cloud Run, AWS ECS, etc. Set `ANTHROPIC_API_KEY` as a secret in the target environment.
+Deploy anywhere Docker runs: a VPS (`docker compose up -d` behind nginx/caddy), Fly.io, Render, Railway, Google Cloud Run, AWS ECS, etc. Set `ANTHROPIC_API_KEY` as a secret in the target environment.
+
+### Fly.io (one-command-ish)
+
+A pre-configured `fly.toml` ships in the repo with a persistent volume for `raw/`, `wiki/`, `outputs/`, and the SQLite index.
+
+```bash
+# 1. Install flyctl and log in (once)
+curl -L https://fly.io/install.sh | sh    # or: brew install flyctl
+fly auth login
+
+# 2. Launch — reuses the bundled fly.toml, no prompts for Dockerfile
+fly launch --no-deploy --copy-config --name <your-app-name>
+
+# 3. Create a 3 GB persistent volume in the same region
+fly volumes create kb_data --region iad --size 3
+
+# 4. Secrets
+fly secrets set ANTHROPIC_API_KEY=sk-ant-...
+
+# 5. Deploy
+fly deploy
+```
+
+Fly prints the public URL (e.g. `https://your-app-name.fly.dev`). Change `iad` to the region nearest you (`lhr`, `fra`, `sin`, `syd`, `nrt`, ...).
 
 ### Recommended reverse proxy (Caddy)
 

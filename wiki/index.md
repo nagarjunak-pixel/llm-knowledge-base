@@ -8,4 +8,4 @@ _No concept articles yet._
 ## Recent summaries
 - [[summaries/README]]
 
-_Last updated: 2026-04-04 22:09:01_
+_Last updated: 2026-04-04 22:19:11_
